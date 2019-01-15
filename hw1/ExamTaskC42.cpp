@@ -75,4 +75,6 @@ void Solve() {
                 << endl;
         }
     }
+
+    delete[] ptr;
 }
