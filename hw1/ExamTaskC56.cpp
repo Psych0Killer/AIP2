@@ -102,4 +102,6 @@ void Solve() {
             << ptr[i]->b95.diff() << " "
             << ptr[i]->b98.diff() << endl;
     }
+
+    delete[] ptr;
 }

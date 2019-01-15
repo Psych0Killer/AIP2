@@ -10,8 +10,17 @@ using namespace std;
 
 #define sz(A) (sizeof(A) / sizeof(*A))
 
-template <typename T>
-void sort(T *A, int N) {
+struct Resident {
+    double dept;
+    string surname;
+    int room_n;
+};
+
+bool swap_p(Resident *x, Resident *y) {
+    return x->dept < y->dept;
+}
+
+void sort(Resident **A, int N) {
     for (int i = N - 1; i > 0; i--) {
         for (int j = 0; j < i; j++) {
             if (swap_p(A[j], A[j+1])) {
@@ -19,16 +28,6 @@ void sort(T *A, int N) {
             }
         }
     }
-}
-
-struct Resident {
-    double dept;
-    string surname;
-    int room_n;
-};
-
-bool swap_p(const Resident &x, const Resident &y) {
-    return x.dept < y.dept;
 }
 
 void Solve() {
@@ -55,19 +54,24 @@ void Solve() {
         }
     }
 
-    sort(porches, sz(porches));
+    Resident **ptr = new Resident*[sz(porches)];
     for (int i = 0; i < sz(porches); i++) {
-        if (porches[i].dept != 0.0) {
+        ptr[i] = &porches[i];
+    }
+    sort(ptr, sz(porches));
+
+    for (int i = 0; i < sz(porches); i++) {
+        if (ptr[i]->dept != 0.0) {
             cout
                 << fixed
                 << setprecision(2)
-                << porches[i].dept
+                << ptr[i]->dept
                 << " "
-                << porch_n(porches[i].room_n)
+                << porch_n(ptr[i]->room_n)
                 << " "
-                << porches[i].room_n
+                << ptr[i]->room_n
                 << " "
-                << porches[i].surname
+                << ptr[i]->surname
                 << endl;
         }
     }
